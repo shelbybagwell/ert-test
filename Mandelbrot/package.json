@@ -1,0 +1,11 @@
+{
+  "name": "mandelbrot",
+  "version": "1.0.0",
+  "description": "solves the mandelbrot equation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "shelby bagwell",
+  "license": "ISC"
+}
