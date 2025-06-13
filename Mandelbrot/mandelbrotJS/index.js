@@ -53,7 +53,8 @@ program
                 let invalid = false;
                 for (let iter=0; iter<maxIterations; iter++) {
                     if (Math.abs(z) >= bound) {
-                        row.push(iter);
+                        // Out of bounds, cannot be part of mandelbrot set
+                        row.push(iter); // Return the index at which it converged
                         invalid = true;
                         break;
                     } else {
@@ -65,6 +66,7 @@ program
                     }
                 }
                 if (!invalid) {
+                    // It is part of the mandelbrot set
                     row.push(0);
                 }
             }
