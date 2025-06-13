@@ -9,6 +9,7 @@
   "author": "shelby bagwell",
   "license": "ISC",
   "dependencies": {
-    "commander": "^14.0.0"
+    "commander": "^14.0.0",
+    "math": "^0.0.3"
   }
 }
