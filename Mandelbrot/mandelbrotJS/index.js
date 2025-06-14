@@ -23,15 +23,12 @@ program
         'height of the view', parseFloat)
     .argument('-s, --step', 
         'resolution of the view (size of a pixel)', parseFloat)
-    .argument('-n, --max-iterations', 
-        'maximum number of iterations to perform at each pixel', parseInt, 
-        100)
-    .argument('-b, --bound', 
-        'divergence cutoff. If the abs(z) >= bound, the iterations stop.', parseFloat, 
-        2)
-    .argument('-p, --power', 
-        'exponent used in the mandelbrot equation', parseFloat, 
-        2)
+    .option('-n, --max-iterations', 
+        'maximum number of iterations to perform at each pixel', '100')
+    .option('-b, --bound', 
+        'divergence cutoff. If the abs(z) >= bound, the iterations stop.', '2')
+    .option('-p, --power', 
+        'exponent used in the mandelbrot equation', '2')
     .action((centerX, centerY, width, height, step, maxIterations, bound, power, options) => {
         let minX = centerX - width;
         let maxX = centerX + width;
@@ -48,7 +45,7 @@ program
             let row = [];
             for (x of x_domain) {
                 let z = math.complex(0,0);
-                let p = options.power;
+                let p = power;
                 let c = math.complex(x, y);
                 let invalid = false;
                 for (let iter=0; iter<maxIterations; iter++) {
