@@ -23,13 +23,13 @@ program
         'height of the view', parseFloat)
     .argument('-s, --step', 
         'resolution of the view (size of a pixel)', parseFloat)
-    .option('-n, --max-iterations', 
-        'maximum number of iterations to perform at each pixel', '100')
-    .option('-b, --bound', 
-        'divergence cutoff. If the abs(z) >= bound, the iterations stop.', '2')
-    .option('-p, --power', 
-        'exponent used in the mandelbrot equation', '2')
-    .action((centerX, centerY, width, height, step, maxIterations, bound, power, options) => {
+    .option('-n, --max-iterations <number>', 
+        'maximum number of iterations to perform at each pixel', 100)
+    .option('-b, --bound <number>', 
+        'divergence cutoff. If the abs(z) >= bound, the iterations stop.', 2)
+    .option('-p, --power <number>', 
+        'exponent used in the mandelbrot equation', 2)
+    .action((centerX, centerY, width, height, step, options) => {
         let minX = centerX - width;
         let maxX = centerX + width;
         let minY = centerY - height;
@@ -45,11 +45,11 @@ program
             let row = [];
             for (x of x_domain) {
                 let z = math.complex(0,0);
-                let p = power;
+                let p = Number(options.power);
                 let c = math.complex(x, y);
                 let invalid = false;
-                for (let iter=0; iter<maxIterations; iter++) {
-                    if (Math.abs(z) >= bound) {
+                for (let iter=0; iter<Number(options.maxIterations); iter++) {
+                    if (Math.abs(z) >= Number(options.bound)) {
                         // Out of bounds, cannot be part of mandelbrot set
                         row.push(iter); // Return the index at which it converged
                         invalid = true;
@@ -71,7 +71,11 @@ program
         }
 
         // Output the data
-        console.log(iterArr);
+        const output = new Map();
+        output.set("x_domain", x_domain);
+        output.set("y_domain", y_domain);
+        output.set("iterArr", iterArr);
+        console.log(JSON.stringify(Object.fromEntries(output)));
     })
 
 program.parse(process.argv);
@@ -80,11 +84,10 @@ program.parse(process.argv);
 Creates an evenly spaced array given a starting value,
 stopping value, and the number of elements desired.
 */
-function linspace(start, stop, count) {
-    const step = (stop - start) / (count - 1);
+function linspace(start, stop, step) {
     let arr = [];
-    for (let i = 0; i < count; i++) {
-        arr.push(start + (step*i));
+    for (let i = start; i <= stop; i += step) {
+        arr.push(i);
     }
     return arr;
 }
