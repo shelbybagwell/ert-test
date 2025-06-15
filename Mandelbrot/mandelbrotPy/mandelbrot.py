@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import matplotlib.pyplot as plt
 import numpy as np
 import subprocess
@@ -7,14 +9,13 @@ import json
 
 
 # Get data from the Javascript function
-def run_node_mandelbrot(path: str, *args):
+def run_node_mandelbrot(cmd: list):
     try:
         result = subprocess.run(
-            ["node", path, *args],
+            cmd,
             capture_output=True,
             text=True,
             check=True,
-            # stderr=subprocess.PIPE,
         )
     except subprocess.CalledProcessError as e:
         print("STDOUT:", e.stdout)
@@ -24,46 +25,71 @@ def run_node_mandelbrot(path: str, *args):
                 e.cmd, e.returncode, e.stderr
             )
         )
+    print(result.stdout)
     return json.loads(result.stdout)
 
 
 # Create the plot
 def mandelbrot_plot(
-    x_domain: list[float], y_domain: list[float], data: np.array
+    x_domain: list[float],
+    y_domain: list[float],
+    data: np.array,
+    plot_name: str,
 ):
+    # Logging for visual user feedbakc
+    print("Creating plot...")
+
     ax = plt.axes()
     ax.set_aspect("equal")
     graph = ax.pcolormesh(x_domain, y_domain, data, cmap="nipy_spectral")
     plt.colorbar(graph)
     plt.xlabel("Real-Axis")
     plt.ylabel("Imaginary-Axis")
-    plt.show()
+    plt.savefig(f"{plot_name}.jpg")
 
 
 if __name__ == "__main__":
-    # Check if user provided filename for plot
-    plot_file = sys.argv[0]
-    if plot_file is None:
-        plot_file = "mandelbrot"
+    # Get environment variables for data
+    x_coord = os.environ.get("x_coord")
+    y_coord = os.environ.get("y_coord")
+    height = os.environ.get("height")
+    width = os.environ.get("width")
+    step = os.environ.get("step")
+    # Optional args
+    iters = os.environ.get("iters")
+    bound = os.environ.get("bound")
+    power = os.environ.get("power")
 
-    # Call the nodejs mandelbrot package
-    dir = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
+    plot_name = sys.argv[1]
+    if plot_name is None or plot_name == "":
+        plot_name = "mandelbrot"
+
+    dir = os.getcwd()
     # Determine os type for slashes
     if "/" in dir:
         mandelbrot_js_file = dir + "/mandelbrotJS/index.js"
     else:
         mandelbrot_js_file = dir + "\\mandelbrotJS\\index.js"
-    output = run_node_mandelbrot(
+    cmd = [
+        "node",
         mandelbrot_js_file,
         "mandelbrot",
-        "0",
-        "0",
-        "2",
-        "2",
-        "0.008016",
-        "--max-iterations",
-        "50",
-    )
+        x_coord,
+        y_coord,
+        width,
+        height,
+        step,
+    ]
+    if iters:
+        cmd.extend(["--max-iterations", iters])
+    if bound:
+        cmd.extend(["--bound", bound])
+    if power:
+        cmd.extend(["--power", power])
+    output = run_node_mandelbrot(cmd)
     mandelbrot_plot(
-        output["x_domain"], output["y_domain"], np.asarray(output["iterArr"])
+        output["x_domain"],
+        output["y_domain"],
+        np.asarray(output["iterArr"]),
+        plot_name,
     )
