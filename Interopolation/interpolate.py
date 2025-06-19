@@ -23,7 +23,7 @@ x_range = np.linspace(121.0, 131.0, 70)
 grid_x, grid_y = np.meshgrid(x_range, y_range)
 
 # Scipy's griddata interpolation
-new_vals = griddata(points, values, (grid_x, grid_y))
+new_vals = griddata(points, values, (grid_x, grid_y), method="nearest")
 
 # Plot interpolated data
 ax = plt.axes()
