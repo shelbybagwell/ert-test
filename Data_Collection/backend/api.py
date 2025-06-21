@@ -15,17 +15,10 @@ class NOAA_SWPC_API:
             print(f"Error {response.status_code}: {response.text}")
             return []
         res = response.json()
-        print(res)
         # The way this data returns is a list of lists, where the first element
         # is the keys, and the rest are data.
         keys = res[0]
         data = res[1:]
-        print(data)
 
         rtsw = [dict(zip(keys, datum)) for datum in data]
         return rtsw
-
-
-if __name__ == "__main__":
-    api = NOAA_SWPC_API()
-    print(type(api.get_RTSW()))
