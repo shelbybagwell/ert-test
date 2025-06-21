@@ -1,10 +1,7 @@
-from flask import Flask, Response, jsonify, request
+from flask import Flask, request
 import sqlite3
 
-import jsonpickle
-
 from api import NOAA_SWPC_API
-from models import RTSW_data
 
 
 app = Flask(__name__)
@@ -38,7 +35,6 @@ def get_rtsw_data():
         persist = True
     noaa = NOAA_SWPC_API()
     rtsw = noaa.get_RTSW()
-    # print(data)
     if persist:
         db = sqlite3.connect("noaa_data.sql")
         for el in rtsw:
@@ -71,4 +67,5 @@ def get_rtsw_data():
     return rtsw
 
 
-app.run(debug=True, host="0.0.0.0", port=5002)
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0", port=5002)

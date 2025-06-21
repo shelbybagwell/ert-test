@@ -1,0 +1,14 @@
+services:
+  backend:
+    build: ./backend
+    container_name: backend
+    restart: always
+    networks:
+      - app_network
+    ports:
+      - "5002:5002"
+    volumes:
+      - ./backend:/app
+
+networks:
+  app_network:
