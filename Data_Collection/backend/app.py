@@ -1,10 +1,12 @@
 from flask import Flask, request
+from flask_cors import CORS
 import sqlite3
 
 from api import NOAA_SWPC_API
 
 
 app = Flask(__name__)
+CORS(app)
 
 db = sqlite3.connect("noaa_data.sqlite")
 db.execute(
