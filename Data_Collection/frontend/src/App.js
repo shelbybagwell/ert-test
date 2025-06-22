@@ -51,7 +51,6 @@ function DataButton({ onSuccess }) {
      try {
       const result = await getData("/rtsw?persist=true");
       onSuccess(result);
-      console.log(result);
     }
     catch {
       console.error("GET request failed, could not get RTSW data.");
