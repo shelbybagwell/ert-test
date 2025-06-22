@@ -1,0 +1,27 @@
+services:
+  backend:
+    build: ./backend
+    container_name: backend
+    restart: always
+    networks:
+      - app_network
+    ports:
+      - "5002:5002"
+    volumes:
+      - ./backend:/app
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    restart: always
+    networks:
+      - app_network
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    stdin_open: true
+    tty: true
+    command: npm start
+
+networks:
+  app_network:
