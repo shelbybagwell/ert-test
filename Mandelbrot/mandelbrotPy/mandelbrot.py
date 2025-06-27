@@ -25,7 +25,6 @@ def run_node_mandelbrot(cmd: list):
                 e.cmd, e.returncode, e.stderr
             )
         )
-    print(result.stdout)
     return json.loads(result.stdout)
 
 
