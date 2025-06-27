@@ -2,9 +2,11 @@
 This directory contains my work toward the IRI EDP assessment.
 
 ## How to run
-Download the IRI source code at (http://irimodel.org/IRI-2020/00_iri.zip) and put it in this directory.
-Download the IRI common files at (http://irimodel.org/COMMON_FILES/00_ccir-ursi.zip) and put it in this directory.
+Download the IRI source code at http://irimodel.org/IRI-2020/00_iri.zip and put it in this directory.
+Download the IRI common files at http://irimodel.org/COMMON_FILES/00_ccir-ursi.zip and put it in this directory.
 No need to unzip, the Makefile will handle that for you.
+You will also need to download the data for this model.
+It can be found at http://irimodel.org/indices/ig_rz.dat and https://chain-new.chain-project.net/echaim_downloads/apf107.dat
 
 To run this code, you need to have `gfortran` and `gnuplot` installed on your device.
 
