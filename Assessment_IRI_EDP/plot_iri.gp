@@ -1,5 +1,4 @@
 set terminal pngcairo size 800,600 enhanced font 'Arial,12'
-set output 'electron_density.png'
 
 set logscale x
 set ylabel "Altitude (km)"

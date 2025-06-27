@@ -35,17 +35,6 @@ int main() {
     for (int i = 0; i < 50; i++) {
         jf[i] = 1; // default true
     }
-    // Set specific options to false
-    jf[4]  = 0;
-    jf[5]  = 0;
-    jf[6]  = 0;
-    jf[23] = 0;
-    jf[30] = 0;
-    jf[33] = 0;
-    jf[35] = 0;
-    jf[39] = 0;
-    jf[40] = 0;
-    jf[47] = 0;
     // geographic coordinates
     int jmag = 0; 
     // location of interest: 37.8N, 75.4W
@@ -66,7 +55,6 @@ int main() {
     float oarr[100];
 
     int npts = (int)((heiend - heibeg)/heistp) + 1; // altitude points
-    
     // Read the data files
     read_ig_rz_();
     readapf107_();
@@ -104,7 +92,7 @@ int main() {
         float height = heibeg + i * heistp;
         float ne = outf[i][0];
         // plasma frequency would be outf[i][14]
-        fprintf(fp_1, "%.1f %.6e\n", height, ne);
+        fprintf(fp_2, "%.1f %.6e\n", height, ne);
     }
     fclose(fp_2);
 
