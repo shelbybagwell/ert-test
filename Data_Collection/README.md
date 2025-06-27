@@ -2,6 +2,7 @@
 This directory contains my work toward the data collection assessment.
 
 # How to run
+Start Docker.
 `docker compose up -d --build`
 This should start both the front end and the backend.
 You can access the frontend at http://localhost:3000
