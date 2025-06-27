@@ -36,7 +36,7 @@ def mandelbrot_plot(
     data: np.array,
     plot_name: str,
 ):
-    # Logging for visual user feedbakc
+    # Logging for visual user feedback
     print("Creating plot...")
 
     ax = plt.axes()
