@@ -60,8 +60,9 @@ if __name__ == "__main__":
     bound = os.environ.get("bound")
     power = os.environ.get("power")
 
-    plot_name = sys.argv[1]
-    if plot_name is None or plot_name == "":
+    try:
+        plot_name = sys.argv[1]
+    except IndexError:
         plot_name = "mandelbrot"
 
     dir = os.getcwd()
