@@ -27,7 +27,7 @@ extract:
 	@if [ ! -f $(TARFILE) ]; then \
 		echo "$(TARFILE) not found."; \
 		echo "Please download it from:"; \
-		echo "  http://irimodel.org/IRI-2020/00_iri.zip"; \
+		echo "http://irimodel.org/IRI-2020/00_iri.zip"; \
 		echo "and place it in this directory."; \
 		exit 1; \
 	fi
